@@ -30,16 +30,21 @@ const builder = new addonBuilder({
 
 builder.defineSubtitlesHandler(async function(args){
   const { id, config } = args;
-  // Tu lógica de traducción aquí...
+  // Aquí puedes integrar tu lógica de traducción real
   return { subtitles: [] }; // placeholder
 });
 
 const port = process.env.PORT || 3000;
 const address = process.env.ADDRESS || "0.0.0.0";
 
-// No usamos carpeta local "static", todo remoto
+// Servir el addon con CORS habilitado
 serveHTTP(builder.getInterface(), {
   port,
   address,
-  cacheMaxAge: 10
+  cacheMaxAge: 10,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type"
+  }
 });
